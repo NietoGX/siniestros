@@ -1,11 +1,47 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const useScrollDirection = () => {
+  const [scrollDirection, setScrollDirection] = useState("up");
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const updateScrollDirection = () => {
+      const scrollY = window.scrollY;
+      const direction = scrollY > lastScrollY ? "down" : "up";
+      if (
+        direction !== scrollDirection &&
+        Math.abs(scrollY - lastScrollY) > 10
+      ) {
+        setScrollDirection(direction);
+      }
+      setScrollY(scrollY);
+      lastScrollY = scrollY > 0 ? scrollY : 0;
+    };
+
+    window.addEventListener("scroll", updateScrollDirection);
+    return () => {
+      window.removeEventListener("scroll", updateScrollDirection);
+    };
+  }, [scrollDirection]);
+
+  return { scrollDirection, scrollY };
+};
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { scrollDirection, scrollY } = useScrollDirection();
 
   return (
-    <nav className="w-full bg-tertiary border-b border-primary shadow-sm">
+    <nav
+      className={`w-full bg-tertiary border-b border-primary shadow-sm fixed top-0 transition-transform duration-300 ${
+        scrollDirection === "down" && scrollY > 100
+          ? "-translate-y-full"
+          : "translate-y-0"
+      }`}
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link href="/#inicio" className="text-3xl font-bold text-primary">
