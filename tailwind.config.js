@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Roboto", "sans-serif"],
+        sans: ["Montserrat", "sans-serif"],
       },
       colors: {
         primary: {
@@ -34,6 +34,7 @@ module.exports = {
       animation: {
         text: "text 5s ease infinite",
         light: "light 3s ease infinite",
+        fadeIn: "fadeIn 0.5s ease-in forwards",
       },
       keyframes: {
         text: {
@@ -54,6 +55,16 @@ module.exports = {
           "50%": {
             "background-size": "200% 200%",
             "background-position": "bottom",
+          },
+        },
+        fadeIn: {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
           },
         },
       },

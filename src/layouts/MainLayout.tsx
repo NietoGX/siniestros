@@ -21,10 +21,10 @@ export default function MainLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <header className="bg-secondary fixed top-0 w-full z-[1000]">
+        <Navigation />
+      </header>
       <div className="min-h-screen flex flex-col">
-        <header className="bg-secondary sticky top-0 z-50">
-          <Navigation />
-        </header>
         <main className="flex-grow">{children}</main>
         <footer className="bg-secondary text-tertiary py-12 border-t border-primary">
           <div className="container mx-auto px-4">
