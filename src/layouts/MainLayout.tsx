@@ -35,8 +35,8 @@ export default function MainLayout({
                 </h3>
                 <div className="space-y-3">
                   <p>Email: info@reclamamostusiniestro.com</p>
-                  <p>Teléfono: +34 XXX XXX XXX</p>
-                  <p>WhatsApp: +34 XXX XXX XXX</p>
+                  <p>Teléfono: +34 623 225 873</p>
+                  <p>WhatsApp: +34 623 225 873</p>
                 </div>
               </div>
               <div>
@@ -46,7 +46,15 @@ export default function MainLayout({
                 <ul className="space-y-3">
                   <li>
                     <a
-                      href="/servicios"
+                      href="/"
+                      className="hover:text-primary transition-colors"
+                    >
+                      Inicio
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/#servicios"
                       className="hover:text-primary transition-colors"
                     >
                       Nuestros Servicios
@@ -54,15 +62,23 @@ export default function MainLayout({
                   </li>
                   <li>
                     <a
-                      href="/sobre-nosotros"
+                      href="/#por-que-elegirnos"
                       className="hover:text-primary transition-colors"
                     >
-                      Sobre Nosotros
+                      ¿Por qué elegirnos?
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/contacto"
+                      href="/#proceso"
+                      className="hover:text-primary transition-colors"
+                    >
+                      Nuestro Proceso
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/#contacto"
                       className="hover:text-primary transition-colors"
                     >
                       Contacto

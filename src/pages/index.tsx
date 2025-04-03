@@ -2,9 +2,83 @@ import MainLayout from "../layouts/MainLayout";
 import Image from "next/image";
 import preocupadoImg from "../assets/preocupado.jpg";
 import siniestroImg from "../assets/siniestro.jpg";
-import saludImg from "../assets/salud.jpeg";
+import saludImg from "../assets/salud.png";
 import sustitucionImg from "../assets/sustitucion.jpg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+// CountUp component for animating numbers
+interface CountUpProps {
+  end: number;
+  duration?: number;
+  prefix?: string;
+  suffix?: string;
+}
+
+const CountUp = ({
+  end,
+  duration = 1000,
+  prefix = "",
+  suffix = "",
+}: CountUpProps) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Set up intersection observer to start animation when visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime: number | null = null;
+    let animationFrame: number | null = null;
+    const startValue = 0;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const currentCount = Math.floor(
+        progress * (end - startValue) + startValue
+      );
+
+      setCount(currentCount);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(step);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(step);
+
+    return () => {
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
+  }, [end, duration, isVisible]);
+
+  return (
+    <div ref={countRef}>
+      {prefix}
+      {count}
+      {suffix}
+    </div>
+  );
+};
 
 export default function Home() {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -344,35 +418,34 @@ export default function Home() {
             ?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center bg-secondary-light bg-opacity-20 p-8 rounded-lg transform hover:scale-105 transition-all">
-              <div className="text-5xl font-bold mb-4 text-primary">99%</div>
-              <p className="text-tertiary text-lg">
-                <span className="text-primary font-semibold">de éxito</span>
+            <div className="text-center bg-primary p-8 rounded-lg transform hover:scale-105 transition-all hover:shadow-xl">
+              <div className="text-5xl font-bold mb-4 text-white">
+                <CountUp end={99} suffix="%" />
+              </div>
+              <p className="text-white text-lg">
+                <span className="font-semibold">de éxito</span>
               </p>
             </div>
-            <div className="text-center bg-secondary-light bg-opacity-20 p-8 rounded-lg transform hover:scale-105 transition-all">
-              <div className="text-5xl font-bold mb-4 text-primary">+500</div>
-              <p className="text-tertiary text-lg">
-                Casos{" "}
-                <span className="text-primary font-semibold">
-                  resueltos con éxito
-                </span>
+            <div className="text-center bg-primary p-8 rounded-lg transform hover:scale-105 transition-all hover:shadow-xl">
+              <div className="text-5xl font-bold mb-4 text-white">
+                <CountUp end={500} prefix="+" />
+              </div>
+              <p className="text-white text-lg">
+                Casos <span className="font-semibold">resueltos con éxito</span>
               </p>
             </div>
-            <div className="text-center bg-secondary-light bg-opacity-20 p-8 rounded-lg transform hover:scale-105 transition-all">
-              <div className="text-5xl font-bold mb-4 text-primary">100%</div>
-              <p className="text-tertiary text-lg">
-                <span className="text-primary font-semibold">
-                  Atención personalizada
-                </span>
+            <div className="text-center bg-primary p-8 rounded-lg transform hover:scale-105 transition-all hover:shadow-xl">
+              <div className="text-5xl font-bold mb-4 text-white">
+                <CountUp end={100} suffix="%" />
+              </div>
+              <p className="text-white text-lg">
+                <span className="font-semibold">Atención personalizada</span>
               </p>
             </div>
-            <div className="text-center bg-secondary-light bg-opacity-20 p-8 rounded-lg transform hover:scale-105 transition-all">
-              <div className="text-5xl font-bold mb-4 text-primary">✓</div>
-              <p className="text-tertiary text-lg">
-                <span className="text-primary font-semibold">
-                  Consulta gratuita
-                </span>
+            <div className="text-center bg-primary p-8 rounded-lg transform hover:scale-105 transition-all hover:shadow-xl">
+              <div className="text-5xl font-bold mb-4 text-white">✓</div>
+              <p className="text-white text-lg">
+                <span className="font-semibold">Consulta gratuita</span>
               </p>
             </div>
           </div>
@@ -391,7 +464,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center bg-secondary p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-secondary text-2xl font-bold mx-auto mb-6">
+              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-secondary text-2xl font-bold mx-auto mb-6">
                 1
               </div>
               <h3 className="text-2xl font-semibold mb-4 text-primary">
@@ -409,7 +482,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-center bg-secondary p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-secondary text-2xl font-bold mx-auto mb-6">
+              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-secondary text-2xl font-bold mx-auto mb-6">
                 2
               </div>
               <h3 className="text-2xl font-semibold mb-4 text-primary">
@@ -428,7 +501,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-center bg-secondary p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-secondary text-2xl font-bold mx-auto mb-6">
+              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-secondary text-2xl font-bold mx-auto mb-6">
                 3
               </div>
               <h3 className="text-2xl font-semibold mb-4 text-primary">
@@ -447,14 +520,14 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section id="contacto" className="py-20 bg-primary text-secondary">
+      <section id="contacto" className="py-20 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-8">
             ¿Necesitas ayuda con tu reclamación?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto font-medium">
             Nuestro equipo de{" "}
-            <span className="bg-secondary text-primary px-2 py-1 rounded-md">
+            <span className="bg-secondary text-white px-2 py-1 rounded-md">
               expertos
             </span>{" "}
             está listo para ayudarte. Primera consulta{" "}
