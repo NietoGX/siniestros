@@ -1,6 +1,9 @@
 import MainLayout from "../layouts/MainLayout";
 import Image from "next/image";
 import preocupadoImg from "../assets/preocupado.jpg";
+import siniestroImg from "../assets/siniestro.jpg";
+import saludImg from "../assets/salud.jpeg";
+import sustitucionImg from "../assets/sustitucion.jpg";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -191,66 +194,136 @@ export default function Home() {
               Servicios
             </span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="bg-secondary p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-              <h3 className="text-2xl font-semibold mb-4 text-primary">
-                Siniestro Total
-              </h3>
-              <p className="text-tertiary">
-                Si has tenido un{" "}
-                <span className="text-primary font-semibold">accidente</span> y
-                la compañía aseguradora no te permite reparar por entender que
-                el vehículo es{" "}
-                <span className="text-primary font-bold italic">
-                  pérdida total
-                </span>
-                , puede que no sea cierto. Si no estás de acuerdo con la{" "}
-                <span className="text-primary font-semibold underline">
-                  indemnización u oferta
-                </span>{" "}
-                que te ofrecen es posible que tu vehículo no sea pérdida total
-                por NO superar la reparación el valor venal del mismo.
-              </p>
+          <div className="flex flex-col gap-16">
+            {/* Siniestro Total */}
+            <div className="group relative rounded-2xl overflow-hidden bg-secondary shadow-xl">
+              <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/2 relative">
+                  <div className="relative h-64 md:h-full overflow-hidden">
+                    <Image
+                      src={siniestroImg}
+                      alt="Siniestro Total"
+                      className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      style={{ objectFit: "cover" }}
+                      width={800}
+                      height={600}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-tertiary/50 md:bg-gradient-to-r"></div>
+                  </div>
+                </div>
+                <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                  <div className="relative">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
+                      Siniestro Total
+                    </h3>
+                    <div className="w-12 h-1 bg-primary mb-6"></div>
+                  </div>
+                  <p className="text-tertiary">
+                    Si has tenido un{" "}
+                    <span className="text-primary font-semibold">
+                      accidente
+                    </span>{" "}
+                    y la compañía aseguradora no te permite reparar por entender
+                    que el vehículo es{" "}
+                    <span className="text-primary font-bold italic">
+                      pérdida total
+                    </span>
+                    , puede que no sea cierto. Si no estás de acuerdo con la{" "}
+                    <span className="text-primary font-semibold underline">
+                      indemnización u oferta
+                    </span>{" "}
+                    que te ofrecen es posible que tu vehículo no sea pérdida
+                    total por NO superar la reparación el valor venal del mismo.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="bg-secondary p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-              <h3 className="text-2xl font-semibold mb-4 text-primary">
-                Daños Corporales
-              </h3>
-              <p className="text-tertiary">
-                Si has tenido un{" "}
-                <span className="text-primary font-semibold">
-                  accidente con tu vehículo
-                </span>
-                , seas o no el culpable, puedes sacar la{" "}
-                <span className="text-primary font-bold">
-                  mejor valoración e indemnización
-                </span>{" "}
-                en proporción a la{" "}
-                <span className="text-primary italic">
-                  gravedad de tus daños
-                </span>
-                .
-              </p>
+
+            {/* Daños Corporales */}
+            <div className="group relative rounded-2xl overflow-hidden bg-secondary shadow-xl">
+              <div className="flex flex-col md:flex-row-reverse">
+                <div className="w-full md:w-1/2 relative">
+                  <div className="relative h-64 md:h-full overflow-hidden">
+                    <Image
+                      src={saludImg}
+                      alt="Daños Corporales"
+                      className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      style={{ objectFit: "cover" }}
+                      width={800}
+                      height={600}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-tertiary/50 md:bg-gradient-to-l"></div>
+                  </div>
+                </div>
+                <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                  <div className="relative">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
+                      Daños Corporales
+                    </h3>
+                    <div className="w-12 h-1 bg-primary mb-6"></div>
+                  </div>
+                  <p className="text-tertiary">
+                    Si has tenido un{" "}
+                    <span className="text-primary font-semibold">
+                      accidente con tu vehículo
+                    </span>
+                    , seas o no el culpable, puedes sacar la{" "}
+                    <span className="text-primary font-bold">
+                      mejor valoración e indemnización
+                    </span>{" "}
+                    en proporción a la{" "}
+                    <span className="text-primary italic">
+                      gravedad de tus daños
+                    </span>
+                    .
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="bg-secondary p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-              <h3 className="text-2xl font-semibold mb-4 text-primary">
-                Vehículo de Sustitución
-              </h3>
-              <p className="text-tertiary">
-                ¿Has tenido el vehículo{" "}
-                <span className="text-primary font-semibold">
-                  parado en el taller días y días
-                </span>{" "}
-                por un accidente que{" "}
-                <span className="text-primary font-bold">
-                  NO ha sido tu culpa
-                </span>
-                ? Te ayudamos a reclamar por un{" "}
-                <span className="text-primary italic underline">
-                  vehículo de sustitución
-                </span>{" "}
-                o por esos daños y perjuicios.
-              </p>
+
+            {/* Vehículo de Sustitución */}
+            <div className="group relative rounded-2xl overflow-hidden bg-secondary shadow-xl">
+              <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/2 relative">
+                  <div className="relative h-64 md:h-full overflow-hidden">
+                    <Image
+                      src={sustitucionImg}
+                      alt="Vehículo de Sustitución"
+                      className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      style={{ objectFit: "cover" }}
+                      width={800}
+                      height={600}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-tertiary/50 md:bg-gradient-to-r"></div>
+                  </div>
+                </div>
+                <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                  <div className="relative">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
+                      Vehículo de Sustitución
+                    </h3>
+                    <div className="w-12 h-1 bg-primary mb-6"></div>
+                  </div>
+                  <p className="text-tertiary">
+                    ¿Has tenido el vehículo{" "}
+                    <span className="text-primary font-semibold">
+                      parado en el taller días y días
+                    </span>{" "}
+                    por un accidente que{" "}
+                    <span className="text-primary font-bold">
+                      NO ha sido tu culpa
+                    </span>
+                    ? Te ayudamos a reclamar por un{" "}
+                    <span className="text-primary italic underline">
+                      vehículo de sustitución
+                    </span>{" "}
+                    o por esos daños y perjuicios.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
